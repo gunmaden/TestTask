@@ -1,0 +1,6 @@
+{
+  "SiteUri": "http://localhost:5000",
+  "SessionsCount": 100,
+  "TestingDurationInSeconds": 60,
+  "WarmUpDurationInSeconds": 5
+}
