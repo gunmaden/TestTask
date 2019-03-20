@@ -314,3 +314,4 @@ src/Documentation/_site
 src/Documentation/api
 src/Documentation/log.txt
 tools/**/config.json
+RestService/RestService/appsettings.json
