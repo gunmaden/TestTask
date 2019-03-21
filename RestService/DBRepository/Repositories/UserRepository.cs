@@ -44,7 +44,9 @@ namespace DBRepository.Repositories
                 result.TotalPages = await query.CountAsync();
                 query = query
                     .Include(p => p.Position)
-                    .OrderBy(p => p.WorkPeriodStartDate)
+                    .OrderBy(p=>p.WorkPeriodStartDate)
+                    .ThenBy(p => p.DisplayName)
+                    .ThenBy(p=>p.BirthDate)                    
                     .Skip((result.CurrentPage - 1) * result.PageSize)
                     .Take(result.PageSize);
 
