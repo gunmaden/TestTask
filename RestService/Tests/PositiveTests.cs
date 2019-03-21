@@ -169,9 +169,13 @@ namespace Tests
 
             pageUser.ShouldSatisfyAllConditions(
                 () => pageUser.Records.Count.ShouldBe(pageSize),
-                () => 
-                    pageUser.Records.Select(x => x.DisplayName)
-                    .ShouldBe(allUsers.OrderBy(x=>x.WorkPeriodStartDate).Select(x => x.DisplayName).Skip((page - 1) * pageSize).Take(pageSize)),
+                () => pageUser.Records.Select(x => x.DisplayName)
+                    .ShouldBe(
+                        allUsers
+                            .Select(x => x.DisplayName)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                    ),
                 () => pageUser.CurrentPage.ShouldBe(page),
                 () => pageUser.TotalPages.ShouldBe(allUsers.Count)
             );
@@ -186,7 +190,12 @@ namespace Tests
             pageUser.ShouldSatisfyAllConditions(
                 () => pageUser.Records.Count.ShouldBe(pageSize),
                 () => pageUser.Records.Select(x => x.DisplayName)
-                    .ShouldBe(allUsers.Select(x => x.DisplayName).Skip((page - 1) * pageSize).Take(pageSize)),
+                    .ShouldBe
+                    (allUsers
+                        .OrderBy(p => p.WorkPeriodStartDate)
+                        .ThenBy(p => p.DisplayName)
+                        .ThenBy(p => p.BirthDate).Select(x => x.DisplayName).Skip((page - 1) * pageSize)
+                        .Take(pageSize)),
                 () => pageUser.CurrentPage.ShouldBe(page),
                 () => pageUser.TotalPages.ShouldBe(allUsers.Count)
             );
